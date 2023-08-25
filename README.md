@@ -6,25 +6,13 @@ npm install
 ```
 
 Note that the node_modules/@sveltejs/kit/postinstall.js script fails to create the `.sveltekit` directory in our package.
+In the `main` branch, this was due to an error. In this case it actually just exits the function early without any runtime
+errors because it attempts to find the directory called `packages/*` and fails, and determines that there is no work to
+be done.
 
-To see why, run the postinstall script directly:
+If you run the postinstall script directly:
 ```bash
 node node_modules/@sveltejs/kit/postinstall.js
 ```
-
-You should see an error similar to this one:
-```
-Error: ENOENT: no such file or directory, chdir 'C:\Users\cah34\Code\Personal\sveltekit-bug-mvr' -> 'C:\Users\cah34\Code
-\Personal\sveltekit-bug-mvr\.eslintignore'
-    at wrappedChdir (node:internal/bootstrap/switches/does_own_process_state:112:14)
-    at process.chdir (node:internal/worker:102:5)
-    at file:///C:/Users/cah34/Code/Personal/sveltekit-bug-mvr/node_modules/@sveltejs/kit/postinstall.js:28:12 {
-  errno: -4058,
-  code: 'ENOENT',
-  syscall: 'chdir',
-  path: 'C:\\Users\\cah34\\Code\\Personal\\sveltekit-bug-mvr',
-  dest: 'C:\\Users\\cah34\\Code\\Personal\\sveltekit-bug-mvr\\.eslintignore'
-}
-```
-It's pretty clear what the problem is here. I would love to know what the project structure looked like when this code
-was functioning correctly.
+... you should see no output, showing no errors. If you debug into the file you'll see it skip the body of the code
+that is responsible for creating the `.sveltekit` directory.
