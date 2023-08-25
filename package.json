@@ -1,0 +1,10 @@
+{
+  "name": "sveltekit-bug-mvr",
+  "version": "1.0.0",
+  "author": "Caleb Hill <chill389cc@gmail.com>",
+  "dependencies": {
+  },
+  "workspaces": [
+    "packages/sveltekit-example"
+  ]
+}
